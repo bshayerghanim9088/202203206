@@ -1,4 +1,7 @@
 from enum import Enum
+from datetime import datetime
+
+"""Reservation System Classes"""
 
 # RoomType Enum for room types
 class RoomType(Enum):
@@ -8,227 +11,133 @@ class RoomType(Enum):
 
 # Guest class represents the hotel guest
 class Guest:
-    def __init__(self, guestID=0, name="", contactDetails="", email="", reservation=None):
+    def __init__(self, guestID=0, name="", contactDetails="", email="", address="", phone="", reservation=None):
         self.guestID = guestID  # Unique identifier for the guest
         self.name = name  # Guest's name
         self.contactDetails = contactDetails  # Guest's contact information
         self.email = email  # Guest's email address
+        self.address = address  # Guest's address
+        self.phone = phone  # Guest's phone number
         self.reservation = reservation  # Reservation associated with the guest
 
-    # Getters and Setters for guestID
+    # Getters for guestID, name, email, contact details, address, and phone
     def getGuestID(self):
         return self.guestID
 
-    def setGuestID(self, guestID):
-        self.guestID = guestID
-
-    # Getters and Setters for name
     def getName(self):
         return self.name
 
-    def setName(self, name):
-        self.name = name
-
-    # Getters and Setters for contact details
-    def getContactDetails(self):
-        return self.contactDetails
-
-    def setContactDetails(self, contactDetails):
-        self.contactDetails = contactDetails
-
-    # Getters and Setters for email
     def getEmail(self):
         return self.email
 
-    def setEmail(self, email):
-        self.email = email
+    def getAddress(self):
+        return self.address
 
-    # Methods for booking, canceling, upgrading room, and extending stay
-    def bookRoom(self):
-        pass  # Placeholder for booking functionality
-
-    def cancelReservation(self):
-        pass  # Placeholder for canceling functionality
-
-    def upgradeRoom(self):
-        pass  # Placeholder for room upgrade functionality
-
-    def extendStay(self):
-        pass  # Placeholder for extending stay functionality
+    def getPhone(self):
+        return self.phone
 
 # Reservation class manages the reservation process
 class Reservation:
-    def __init__(self, reservationID=0, room=None, checkInDate="", checkOutDate="", status=""):
+    def __init__(self, reservationID=0, room=None, checkInDate=None, checkOutDate=None, status="", advance_payment=None):
         self.reservationID = reservationID  # Unique identifier for the reservation
         self.room = room  # Room object associated with the reservation
         self.checkInDate = checkInDate  # Check-in date
         self.checkOutDate = checkOutDate  # Check-out date
         self.status = status  # Reservation status (e.g., Confirmed, Canceled)
+        self.advance_payment = advance_payment  # Payment object linked to the reservation
 
-    # Getters and Setters for reservationID
+    # Getters for reservationID, check-in, and check-out dates
     def getReservationID(self):
         return self.reservationID
 
-    def setReservationID(self, reservationID):
-        self.reservationID = reservationID
-
-    # Getters and Setters for check-in date
     def getCheckInDate(self):
         return self.checkInDate
 
-    def setCheckInDate(self, checkInDate):
-        self.checkInDate = checkInDate
-
-    # Getters and Setters for check-out date
     def getCheckOutDate(self):
         return self.checkOutDate
 
-    def setCheckOutDate(self, checkOutDate):
-        self.checkOutDate = checkOutDate
-
-    # Methods for confirming, canceling, extending stay, and upgrading room
-    def confirmReservation(self):
-        pass  # Placeholder for confirming reservation functionality
-
-    def cancelReservation(self):
-        pass  # Placeholder for canceling reservation functionality
-
-    def extendStay(self):
-        pass  # Placeholder for extending stay functionality
-
-    def upgradeRoom(self):
-        pass  # Placeholder for room upgrade functionality
-
 # Room class to represent the hotel room
 class Room:
-    def __init__(self, roomNumber=0, roomType=RoomType.Queen, availability=True, price=0.0):
+    def __init__(self, roomNumber=0, roomType=RoomType.Queen, pricePerNight=0.0):
         self.roomNumber = roomNumber  # Room number
-        self.roomType = roomType  # Type of room (Queen, King, Suite)
-        self.availability = availability  # Availability status
-        self.price = price  # Price per night
+        self.roomType = roomType  # Type of room
+        self.pricePerNight = pricePerNight  # Price per night
 
-    # Getters and Setters for roomNumber
+    # Getters for room type and price per night
     def getRoomNumber(self):
         return self.roomNumber
 
-    def setRoomNumber(self, roomNumber):
-        self.roomNumber = roomNumber
-
-    # Getters and Setters for roomType
     def getRoomType(self):
         return self.roomType
 
-    def setRoomType(self, roomType):
-        self.roomType = roomType
-
-    # Methods for checking and updating availability
-    def checkAvailability(self):
-        return self.availability
-
-    def updateAvailability(self, availability):
-        self.availability = availability
-
-    # Getters and Setters for price
-    def getPrice(self):
-        return self.price
-
-    def setPrice(self, price):
-        self.price = price
+    def getPricePerNight(self):
+        return self.pricePerNight
 
 # Payment class handles the payment processing
 class Payment:
-    def __init__(self, paymentID=0, amount=0.0, cardNumber=""):
+    def __init__(self, paymentID=0, amount=0.0, cardNumber="", paymentMethod="", paymentNote=""):
         self.paymentID = paymentID  # Unique payment ID
         self.amount = amount  # Payment amount
         self.cardNumber = cardNumber  # Card number used for payment
+        self.paymentMethod = paymentMethod  # Payment method (e.g., "MasterCard")
+        self.paymentNote = paymentNote  # Payment note (e.g., "Ending in 9804")
 
-    # Getters and Setters for paymentID
-    def getPaymentID(self):
-        return self.paymentID
-
-    def setPaymentID(self, paymentID):
-        self.paymentID = paymentID
-
-    # Getters and Setters for amount
-    def getAmount(self):
-        return self.amount
-
-    def setAmount(self, amount):
-        self.amount = amount
-
-    # Masked card number (last 4 digits only)
+    # Getters for masked card number and payment details
     def getMaskedCardNumber(self):
         return f"**** **** **** {self.cardNumber[-4:]}"
 
-    # Method to process the payment
-    def processPayment(self):
-        pass  # Placeholder for payment processing functionality
+# Generate Invoice
+def generate_invoice(guest):
+    """Generate an invoice for the reservation."""
+    reservation = guest.reservation
+    print("Your Reservation Is Confirmed")
+    print("Thank you for your reservation. Please print your hotel receipt and show it at checkin\n")
 
-# HotelEmployee class represents hotel employees who assist with reservations
-class HotelEmployee:
-    def __init__(self, employeeID=0, name=""):
-        self.employeeID = employeeID  # Unique identifier for the employee
-        self.name = name  # Employee's name
+    print(f"Your Name: {guest.getName()}")
+    print(f"Your Email: {guest.getEmail()}")
+    print(f"Priceline Trip Number: {reservation.advance_payment.paymentID}")
+    print(f"Hotel Confirmation Number: {reservation.getReservationID()}\n")
 
-    # Getters and Setters for employeeID
-    def getEmployeeID(self):
-        return self.employeeID
+    print("Comfort Inn & Suites Los Alamos")
+    print(f"Address: {guest.getAddress()}")
+    print(f"Phone: {guest.getPhone()}")
+    print(f"Room Number: {reservation.room.getRoomNumber()}: {guest.getName()}")
+    print(f"Check-In: {reservation.getCheckInDate()}")
+    print(f"Check-Out: {reservation.getCheckOutDate()}")
+    num_nights = (reservation.getCheckOutDate() - reservation.getCheckInDate()).days
+    print(f"Number of Nights: {num_nights}")
+    print(f"Number of Rooms: 1")
+    print(f"Room Type: {reservation.room.getRoomType().name}")
 
-    def setEmployeeID(self, employeeID):
-        self.employeeID = employeeID
+    print("\nSummary of Charges")
+    print(f"Billing Name: {guest.getName()}")
+    print(f"{reservation.advance_payment.paymentMethod}: {reservation.advance_payment.paymentNote}")
+    print(f"Room Cost per night: ${reservation.room.getPricePerNight():.2f}")
+    print(f"Rooms: 1")
+    print(f"Nights: {num_nights}")
+    room_subtotal = reservation.room.getPricePerNight() * num_nights
+    print(f"Room Subtotal: ${room_subtotal:.2f}")
+    taxes_and_fees = 21.58  # Example value for taxes and fees
+    print(f"Taxes and Fees: ${taxes_and_fees:.2f}")
+    total_amount = room_subtotal + taxes_and_fees
+    print(f"Total Charges: ${total_amount:.2f}")
 
-    # Getters and Setters for name
-    def getName(self):
-        return self.name
+# Sample Data to Create Objects and Generate Invoice
 
-    def setName(self, name):
-        self.name = name
+# Create Room object
+room1 = Room(roomNumber=101, roomType=RoomType.Queen, pricePerNight=89.85)
 
-    # Methods for managing reservations, extending stay, and canceling reservations
-    def manageReservation(self):
-        pass  # Placeholder for managing reservation functionality
+# Create Payment object
+payment1 = Payment(paymentID=52573887, amount=201.48, cardNumber="1234567890129804", paymentMethod="MasterCard", paymentNote="Ending in 9804")
 
-    def extendStay(self):
-        pass  # Placeholder for extending stay functionality
+# Create Reservation object
+check_in_date = datetime(2024, 10, 10)
+check_out_date = datetime(2024, 10, 15)
+reservation1 = Reservation(reservationID=123456, room=room1, checkInDate=check_in_date, checkOutDate=check_out_date, status="Confirmed", advance_payment=payment1)
 
-    def cancelReservation(self):
-        pass  # Placeholder for canceling reservation functionality
+# Create Guest object
+guest1 = Guest(guestID=1001, name="Ali Al-Hashmi", contactDetails="0567891234", email="ali.alhashmi@example.com", address="Abu Dhabi", phone="0567891234", reservation=reservation1)
 
-# Creating objects and displaying information
+# Generate and display the invoice
+generate_invoice(guest1)
 
-# Create a Room object
-room1 = Room(roomNumber=101, roomType=RoomType.Queen, availability=True, price=89.85)
-
-# Create a Reservation object for the guest
-reservation1 = Reservation(reservationID=52573887, room=room1, checkInDate="2024-10-10", checkOutDate="2024-10-15", status="Confirmed")
-
-# Create a Payment object
-payment1 = Payment(paymentID=123456, amount=201.48, cardNumber="1234567890123456")
-
-# Create a Guest object (represents a hotel guest)
-guest1 = Guest(guestID=1001, name="Ali Al-Hashmi", contactDetails="0567891234", email="ali.alhashmi@example.com", reservation=reservation1)
-
-# Create a HotelEmployee object (represents a hotel employee)
-employee1 = HotelEmployee(employeeID=5001, name="Sara Al-Blooshi")
-
-# Displaying the requested information
-
-# Reservation Information
-print(f"Your Reservation Is Confirmed")
-print(f"Your Email: {guest1.getEmail()}")
-print(f"Hotel Confirmation Number: {guest1.reservation.getReservationID()}")
-
-# Room Information
-print(f"\nRoom Type: {guest1.reservation.room.getRoomType().name} Beds")
-print(f"Check-in Date: {guest1.reservation.getCheckInDate()}")
-print(f"Check-out Date: {guest1.reservation.getCheckOutDate()}")
-print(f"Room Cost per night: ${guest1.reservation.room.getPrice()}")
-
-# Summary of Charges
-print(f"\nBilling Name: {guest1.getName()}")
-print(f"Credit Card: {payment1.getMaskedCardNumber()}")
-print(f"Room Cost: ${guest1.reservation.room.getPrice()}")
-print(f"Number of Nights: 2")
-print(f"Room Subtotal: ${guest1.reservation.room.getPrice() * 2:.2f}")
-print(f"Taxes and Fees: $21.58")
-print(f"Total Charges: ${payment1.getAmount()}")
