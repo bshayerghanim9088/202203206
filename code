@@ -1,0 +1,242 @@
+# Importing Enum to handle room types in the Room class
+from enum import Enum
+
+# The RoomType enum represents different types of rooms like Standard, Deluxe, and Suite
+class RoomType(Enum):
+    Standard = 1
+    Deluxe = 2
+    Suite = 3
+
+# Guest class represents the hotel guest who interacts with the reservation system
+class Guest:
+    def __init__(self, guestID=0, name="", contactDetails="", email="", reservation=None):
+        self.guestID = guestID  # Unique identifier for the guest
+        self.name = name  # Guest's name
+        self.contactDetails = contactDetails  # Guest's contact information
+        self.email = email  # Guest's email address
+        self.reservation = reservation  # Reservation associated with the guest
+
+    # Getter and Setter for guestID
+    def getGuestID(self):
+        return self.guestID
+
+    def setGuestID(self, id):
+        self.guestID = id
+
+    # Getter and Setter for name
+    def getName(self):
+        return self.name
+
+    def setName(self, name):
+        self.name = name
+
+    # Getter and Setter for contactDetails
+    def getContactDetails(self):
+        return self.contactDetails
+
+    def setContactDetails(self, details):
+        self.contactDetails = details
+
+    # Getter and Setter for email
+    def getEmail(self):
+        return self.email
+
+    def setEmail(self, email):
+        self.email = email
+
+    # Method for booking a room (placeholder)
+    def bookRoom(self):
+        pass  # This will eventually contain booking functionality
+
+    # Method for canceling a reservation (placeholder)
+    def cancelReservation(self):
+        pass  # This will eventually contain canceling functionality
+
+    # Method for upgrading a room (placeholder)
+    def upgradeRoom(self):
+        pass  # This will eventually contain room upgrade functionality
+
+    # Method for extending the stay (placeholder)
+    def extendStay(self):
+        pass  # This will eventually contain extending stay functionality
+
+# Reservation class handles all operations related to booking
+class Reservation:
+    def __init__(self, reservationID=0, room=None, checkInDate="", checkOutDate="", status=""):
+        self.reservationID = reservationID  # Unique identifier for the reservation
+        self.room = room  # Room associated with the reservation (instance of Room class)
+        self.checkInDate = checkInDate  # Check-in date for the reservation
+        self.checkOutDate = checkOutDate  # Check-out date for the reservation
+        self.status = status  # Status of the reservation (e.g., Confirmed, Canceled)
+
+    # Getter and Setter for reservationID
+    def getReservationID(self):
+        return self.reservationID
+
+    def setReservationID(self, id):
+        self.reservationID = id
+
+    # Getter and Setter for checkInDate
+    def getCheckInDate(self):
+        return self.checkInDate
+
+    def setCheckInDate(self, date):
+        self.checkInDate = date
+
+    # Getter and Setter for checkOutDate
+    def getCheckOutDate(self):
+        return self.checkOutDate
+
+    def setCheckOutDate(self, date):
+        self.checkOutDate = date
+
+    # Getter and Setter for status
+    def getStatus(self):
+        return self.status
+
+    def setStatus(self, status):
+        self.status = status
+
+    # Method to confirm reservation (placeholder)
+    def confirmReservation(self):
+        pass  # Placeholder for confirmation functionality
+
+    # Method to cancel reservation (placeholder)
+    def cancelReservation(self):
+        pass  # Placeholder for cancel functionality
+
+    # Method to extend stay (placeholder)
+    def extendStay(self):
+        pass  # Placeholder for extending stay functionality
+
+    # Method to upgrade room (placeholder)
+    def upgradeRoom(self):
+        pass  # Placeholder for room upgrade functionality
+
+# Room class represents the hotel's rooms, tracking availability and pricing
+class Room:
+    def __init__(self, roomNumber=0, roomType=RoomType.Standard, availability=True, price=0.0):
+        self.roomNumber = roomNumber  # Unique identifier for the room
+        self.roomType = roomType  # Type of room (Standard, Deluxe, Suite)
+        self.availability = availability  # Boolean indicating if the room is available
+        self.price = price  # Price of the room per night
+
+    # Getter and Setter for roomNumber
+    def getRoomNumber(self):
+        return self.roomNumber
+
+    def setRoomNumber(self, number):
+        self.roomNumber = number
+
+    # Getter and Setter for roomType
+    def getRoomType(self):
+        return self.roomType
+
+    def setRoomType(self, roomType):
+        self.roomType = roomType
+
+    # Getter and Setter for availability
+    def checkAvailability(self):
+        return self.availability
+
+    def setAvailability(self, status):
+        self.availability = status
+
+    # Getter and Setter for price
+    def getPrice(self):
+        return self.price
+
+    def setPrice(self, price):
+        self.price = price
+
+# Payment class handles payment processing for reservations
+class Payment:
+    def __init__(self, paymentID=0, amount=0.0, paymentStatus="Pending"):
+        self.paymentID = paymentID  # Unique identifier for the payment
+        self.amount = amount  # Amount of the payment
+        self.paymentStatus = paymentStatus  # Status of the payment (e.g., Pending, Completed)
+
+    # Getter and Setter for paymentID
+    def getPaymentID(self):
+        return self.paymentID
+
+    def setPaymentID(self, id):
+        self.paymentID = id
+
+    # Getter and Setter for amount
+    def getAmount(self):
+        return self.amount
+
+    def setAmount(self, amount):
+        self.amount = amount
+
+    # Getter and Setter for paymentStatus
+    def getPaymentStatus(self):
+        return self.paymentStatus
+
+    def setPaymentStatus(self, status):
+        self.paymentStatus = status
+
+    # Method to process the payment (placeholder)
+    def processPayment(self):
+        pass  # Placeholder for payment processing functionality
+
+# HotelEmployee class represents employees who manage guest reservations
+class HotelEmployee:
+    def __init__(self, employeeID=0, name=""):
+        self.employeeID = employeeID  # Unique identifier for the employee
+        self.name = name  # Employee's name
+
+    # Getter and Setter for employeeID
+    def getEmployeeID(self):
+        return self.employeeID
+
+    def setEmployeeID(self, id):
+        self.employeeID = id
+
+    # Getter and Setter for name
+    def getName(self):
+        return self.name
+
+    def setName(self, name):
+        self.name = name
+
+    # Method for managing reservations (placeholder)
+    def manageReservation(self):
+        pass  # Placeholder for managing reservations
+
+    # Method for extending a guest's stay (placeholder)
+    def extendStay(self):
+        pass  # Placeholder for extending a stay
+
+    # Method for canceling a reservation (placeholder)
+    def cancelReservation(self):
+        pass  # Placeholder for canceling reservation
+
+# Creating instances of the classes
+
+# Create a Room object
+room1 = Room(roomNumber=305, roomType=RoomType.Suite, availability=True, price=750.0)
+
+# Create a Reservation object for the guest with updated dates
+reservation1 = Reservation(reservationID=3, room=room1, checkInDate="2024-12-01", checkOutDate="2024-12-10", status="Confirmed")
+
+# Create a Payment object with updated details
+payment1 = Payment(paymentID=98765, amount=750.0, paymentStatus="Pending")
+
+# Create a Guest object with an Arabic name and contact information
+guest1 = Guest(guestID=3003, name="Ali Al-Hashmi", contactDetails="0567891234", email="ali.alhashmi@example.com", reservation=reservation1)
+
+# Create a HotelEmployee object with an Arabic name
+employee1 = HotelEmployee(employeeID=7003, name="Sara Al-Blooshi")
+
+# Display updated Guest information
+print(f"Guest Name: {guest1.getName()}")
+print(f"Reservation ID: {guest1.reservation.getReservationID()}")
+print(f"Room Number: {guest1.reservation.room.getRoomNumber()}")
+print(f"Check-in Date: {guest1.reservation.getCheckInDate()}")
+print(f"Room Type: {guest1.reservation.room.getRoomType().name}")
+print(f"Total Payment: {payment1.getAmount()}")
+
+# Example of calling a method
+guest1.bookRoom()  # This will call the bookRoom method, currently a placeholder
